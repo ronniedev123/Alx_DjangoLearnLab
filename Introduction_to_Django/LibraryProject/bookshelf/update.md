@@ -26,3 +26,27 @@ book.title
 
 "Mastering Django"
 
+
+
+\#detailed crud operations
+
+\#command
+
+from bookshelf.models import Books
+
+book = Book.objects.get(id=3)
+
+book.title = "Nineteen Eighty-Four"
+
+book.save()
+
+book.title
+
+
+
+\#output
+
+'Nineteen Eighty-Four'
+
+
+

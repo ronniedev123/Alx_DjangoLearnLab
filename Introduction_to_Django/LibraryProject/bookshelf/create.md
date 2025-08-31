@@ -20,3 +20,27 @@ book.save()
 
 \[<Book: Book object (1)>]>
 
+
+
+\#Detailed crud operations
+
+
+
+\#command
+
+
+
+from bookshelf.models import Book
+
+book = Book(title="1984", author="George Orwell", publication\_year=1949)
+
+book.save()
+
+
+
+\#output
+
+\[<Book: Book object (1)>]>
+
+(Successful)
+
