@@ -39,8 +39,7 @@ def logout_view(request):
 
 def book_list(request):
     books = Book.objects.all()
-    output = "\n".join([f"{book.title} — {book.author}" for book in books])
-    return HttpResponse(output, content_type="text/plain")
+    return render(request, "relationship_app/templates/list_books.html", {"books": books})
 
 
 class LibraryDetailView(DetailView):
