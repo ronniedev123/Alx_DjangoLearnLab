@@ -37,11 +37,10 @@ def logout_view(request):
     logout(request)
     return redirect("login")  # send user back to login page
 
-
-
-def list_books(request):
+def book_list(request):
     books = Book.objects.all()
-    return render(request, "list_books.html", {"books": books})
+    output = "\n".join([f"{book.title} — {book.author}" for book in books])
+    return HttpResponse(output, content_type="text/plain")
 
 
 class LibraryDetailView(DetailView):

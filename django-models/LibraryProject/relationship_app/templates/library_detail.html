@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Library Detail</title>
+    <title>{{ library.name }} Details</title>
 </head>
 <body>
     <h1>Library: {{ library.name }}</h1>
+    <p>Location: {{ library.location }}</p>
+
     <h2>Books in Library:</h2>
     <ul>
         {% for book in library.books.all %}
