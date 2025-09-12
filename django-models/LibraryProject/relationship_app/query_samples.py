@@ -1,7 +1,10 @@
 import os
+import sys
 import django
 
-# Setup Django environment so we can run ORM queries
+BASE_DIR = r"C:\Users\ronal\Alx_DjangoLearnLab\django-models\LibraryProject"
+sys.path.append(BASE_DIR)
+
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "LibraryProject.settings")
 django.setup()
 
