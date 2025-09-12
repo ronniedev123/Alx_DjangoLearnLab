@@ -4,8 +4,11 @@ from .models import Book
 from django.views.generic.detail import DetailView
 from .models import Library
 from django.shortcuts import render, redirect
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login
+from django.contrib.auth.forms import UserCreationForm 
+from django.contrib.auth import logout
+from django.contrib.auth import authenticate
+from django.contrib.auth.forms import AuthenticationForm
 
 # User Registration View
 def register_view(request):
