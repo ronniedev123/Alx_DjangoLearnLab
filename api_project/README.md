@@ -42,7 +42,6 @@ Use Postman or curl:
 
 ```bash
 
-curl -X GET http://127.0.0.1:8000/books/ -H "Authorization: Token your\_token"
-
+curl -X GET http://127.0.0.1:8000/books/ -H "Authorization: Token your\\\_token"
 
 

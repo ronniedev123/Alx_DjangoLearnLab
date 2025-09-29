@@ -3,6 +3,9 @@ from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from .views import RegisterView
 from .views import list_books
+from .views.admin_view import admin_view
+from .views.librarian_view import librarian_view
+from .views.member_view import member_view
 from . import views
 
 urlpatterns = [
