@@ -56,3 +56,19 @@ Combine multiple:
 
 
 
+\## Running API Tests
+
+
+
+Unit tests are located in `api/test\_views.py`.
+
+
+
+Run all API tests:
+
+```bash
+
+python manage.py test api
+
+
+
