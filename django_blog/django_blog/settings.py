@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog'
+    'blog.apps.BlogConfig'
 ]
 
 MIDDLEWARE = [
@@ -103,6 +103,17 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# templates already configured earlier – ensure APP_DIRS True etc.
+
+LOGIN_REDIRECT_URL = "profile"     # where to go after login
+LOGOUT_REDIRECT_URL = "login"      # where to go after logout
+LOGIN_URL = "login"
+
+# Media (for profile avatars)
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
+
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
@@ -121,9 +132,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    BASE_DIR / "static",
-]
+# STATICFILES_DIRS = [BASE_DIR / "static"]
 
 TEMPLATES = [
     {
