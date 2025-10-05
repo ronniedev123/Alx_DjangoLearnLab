@@ -6,8 +6,10 @@ from django.contrib.auth import login as auth_login
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
-from .models import Post, Comment
+from django.db.models import Q
+from .models import Post, Comment, Tag
 from .forms import CommentForm
+from .forms import PostForm
 
 def register(request):
     if request.method == "POST":
@@ -37,6 +39,22 @@ def profile(request):
 
 def home(request):
     return redirect("post-list")  # optional: redirect homepage to posts list
+
+def post_search(request):
+    q = request.GET.get('q', '').strip()
+    results = Post.objects.none()
+    if q:
+        # search in title and body; tag names via taggit's tag__name__in or filter via taggit API
+        results = Post.objects.filter(
+            Q(title__icontains=q) |
+            Q(body__icontains=q) |
+            Q(tags__name__icontains=q)
+        ).distinct()
+    return render(request, 'blog/search_results.html', {'query': q, 'results': results})
+
+def posts_by_tag(request, tag_name):
+    results = Post.objects.filter(tags__name__iexact=tag_name).distinct()
+    return render(request, 'blog/posts_by_tag.html', {'tag': tag_name, 'results': results})
 
 # --- Post CRUD views ---
 
