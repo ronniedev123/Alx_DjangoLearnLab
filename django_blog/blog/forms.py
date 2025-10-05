@@ -31,7 +31,6 @@ class ProfileUpdateForm(forms.ModelForm):
         fields = ["title", "body", "tags", "bio", "avatar"]
 
         def __init__(self, *args, **kwargs):
-        # If we pass instance, populate tags field from instance.tags
         super().__init__(*args, **kwargs)
         if self.instance and self.instance.pk:
             tag_names = ', '.join([t.name for t in self.instance.tags.all()])
@@ -59,6 +58,12 @@ class ProfileUpdateForm(forms.ModelForm):
         return post
 
 class PostForm(forms.ModelForm):
+    tags_field = forms.CharField(
+        required=False,
+        help_text='Comma-separated tags',
+        widget=forms.TextInput(attrs={'placeholder': 'e.g. django, tips'})
+    )
+
     class Meta:
         model = Post
         fields = ["title", "content"]  # author and published_date are set automatically
@@ -66,6 +71,12 @@ class PostForm(forms.ModelForm):
             "title": forms.TextInput(attrs={"placeholder": "Post title", "class": "form-control"}),
             "content": forms.Textarea(attrs={"placeholder": "Write your post...", "class": "form-control", "rows": 8}),
         }
+
+    def __init__(self, *args, **kwargs):
+        instance = kwargs.get('instance', None)
+           super().__init__(*args, **kwargs)
+           if instance:
+            self.fields['tags_field'].initial = ', '.join(t.name for t in  instance.tags.all())
 
 
 class CommentForm(forms.ModelForm):
