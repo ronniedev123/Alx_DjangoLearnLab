@@ -10,6 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'bio', 'profile_picture', 'followers']
         read_only_fields = ['followers', 'id']
 
+User = get_user_model()
 
 class RegisterSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True, min_length=8)
@@ -22,7 +23,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         password = validated_data.pop('password')
-        user = User(**validated_data)
+        user = User.objects.create_user(password=password, **validated_data)
         user.set_password(password)
         user.save()
         Token.objects.create(user=user)
