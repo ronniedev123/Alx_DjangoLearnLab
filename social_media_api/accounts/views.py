@@ -3,9 +3,9 @@ from rest_framework import generics, permissions, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
-from .models import User
-from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
 from .models import CustomUser
+from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
+from .models import User
 
 # Allow anyone to register and login
 class RegisterView(generics.CreateAPIView):
@@ -40,8 +40,9 @@ class ProfileView(generics.RetrieveUpdateAPIView):
     def get_object(self):
         return self.request.user
 
-class FollowUserView(APIView):
+class FollowUserView(generics.GenericAPIView):
     """Authenticated user follows another user."""
+    queryset = CustomUser.objects.all()
     permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, user_id):
