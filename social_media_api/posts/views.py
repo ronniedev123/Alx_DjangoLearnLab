@@ -1,7 +1,8 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, filters
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from .models import Post, Comment
@@ -49,4 +50,22 @@ class CommentViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
          serializer.save(author=self.request.user)
+
+
+class FeedView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        # Get users that the current user follows
+        followed_users = request.user.following.all()
+
+        # Get posts authored by those users
+        posts = Post.objects.filter(author__in=followed_users).order_by('-created_at')
+
+        # Serialize the posts
+        serializer = PostSerializer(posts, many=True)
+
+        # Return JSON response
+        return Response(serializer.data)
+
 # Create your views here.
