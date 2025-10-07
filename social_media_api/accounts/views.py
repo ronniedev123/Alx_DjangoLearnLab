@@ -5,7 +5,7 @@ from rest_framework.views import APIView
 from rest_framework.authtoken.models import Token
 from .models import User
 from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
-
+from .models import CustomUser
 
 # Allow anyone to register and login
 class RegisterView(generics.CreateAPIView):
